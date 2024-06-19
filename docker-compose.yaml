@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+  item-app:
+    image: dwihami/item-app:v1
+    # Dengan menggunakan depends_on, dapat mengatur urutan mulai layanan dalam Docker Compose
+    depends_on:
+      - item-db
+    container_name: item-app
+    # menginstruksikan Docker untuk secara otomatis me-restart container jika container tersebut berhenti secara tak terduga atau berhenti dengan status error
+    restart: unless-stopped
+    # memungkinkan kita untuk berinteraksi dengan container melalui terminal atau melalui aplikasi yang membutuhkan input langsung dari pengguna
+    stdin_open: true
+    ports:
+      - "80:8080"
+  item-db:
+    image: mongo:3
+    container_name: item-db
+    # menginstruksikan Docker untuk secara otomatis me-restart container jika container tersebut berhenti secara tak terduga atau berhenti dengan status error
+    restart: unless-stopped
+    # memungkinkan Anda untuk berinteraksi dengan container melalui terminal atau melalui aplikasi yang membutuhkan input langsung dari pengguna
+    stdin_open: true
+    volumes:
+      - app-db:/data/db
+volumes:
+  app-db:
