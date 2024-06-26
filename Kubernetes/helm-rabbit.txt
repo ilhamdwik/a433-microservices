@@ -1,0 +1,9 @@
+helm repo add bitnami https://charts.bitnami.com/bitnami
+
+helm repo update
+
+helm show values bitnami/rabbitmq > values.yaml
+
+helm install rabbitmq bitnami/rabbitmq -f values.yaml -n default
+
+lalu saya mengubah service rabbitmq yang awalnya ClusterIP menjadi LoadBalancer

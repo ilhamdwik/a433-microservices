@@ -1,0 +1,7 @@
+image di github packages order-service
+https://github.com/users/ilhamdwik/packages/container/package/order-service
+
+image di github packages shipping-service
+https://github.com/users/ilhamdwik/packages/container/package/shipping-service
+
+https://github.com/ilhamdwik/a433-microservices/tree/e-commerce-app

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  # labels dan selector di service harus sama dengan label yang ada di deployment order-service
+  labels:
+    app: order-service
+  name: order-service
+  namespace: default
+spec:
+  ports:
+  - port: 3000
+    protocol: TCP
+    targetPort: 3000
+  # labels dan selector di service harus sama dengan label yang ada di deployment order-service
+  selector:
+    app: order-service
+  # ClusterIP memungkinkan pod dalam cluster untuk berkomunikasi satu sama lain menggunakan alamat IP internal.
+  type: ClusterIP

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  # labels dan selector di service harus sama
+  labels:
+    app: order-service
+  name: order-service
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-service
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      # labels dan selector di service harus sama
+      labels:
+        app: order-service
+    spec:
+      containers:
+      # image yang ada di github packages, images harus bersifat public supaya bisa digunakan di dalam cluster kubernetes
+      - image: ghcr.io/ilhamdwik/order-service:latest
+        name: order-service
+        # port yg digunakan di dalam container
+        ports:
+        - containerPort: 3000  # Port aplikasi backend
+        env:
+          - name: AMQP_URL
+            value: "amqp://user:80i2qekGhxig7ESV@rabbitmq.default.svc.cluster.local:5672"
+          #- name: RABBITMQ_HOST
+          #  value: "rabbitmq.default.svc.cluster.local"  # Nama layanan RabbitMQ di dalam cluster Kubernetes
+          #- name: RABBITMQ_PORT
+          #  value: "5672"  # Port RabbitMQ
+          #- name: RABBITMQ_USER
+          #  value: "user"
+          #- name: RABBITMQ_PASSWORD
+          #  value: "80i2qekGhxig7ESV"
+        resources: {}
+status: {}
