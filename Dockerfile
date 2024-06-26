@@ -1,5 +1,5 @@
-# base image menggunakan node:14
-FROM node:14
+# base image menggunakan node:14-alpine, agar size images lebih kecil
+FROM node:14-alpine
 
 # menentukan working directory di container
 WORKDIR /app
@@ -7,14 +7,11 @@ WORKDIR /app
 # menyalin seluruh source code ke dalam working directory di container
 COPY . .
 
-# menentukan bahwa saat ini kita menjalankan dalam mode production
-ENV NODE_ENV=production
+# Menginstal dependencies
+RUN npm install
 
-# Menginstal dependencies untuk production dan kemudian build aplikasi
-RUN npm install --production --unsafe-perm && npm run build
-
-# meng-expose port 8080 di dalam container
+# meng-expose port 3000 di dalam container
 EXPOSE 3001
 
-# menjalankan perintah npm start di dalam container
-CMD ["npm", "start"]
+# menjalankan perintah node
+CMD ["node", "index.js"]
